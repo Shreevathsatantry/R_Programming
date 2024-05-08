@@ -1,0 +1,12 @@
+library(dplyr)
+library(ggplot2)
+data=read.csv("C:/Users/shree/Documents/R final programming/marks.csv")
+sum(is.na(data))
+data=na.omit(data)
+lm_model=lm(External~Internal,data=data)
+print(lm_model)
+print(coef(lm_model))
+summary(lm_model)
+print(ggplot(data,aes(x=Internal,y=External))+geom_point()+geom_smooth(method = "lm",se=FALSE,color="blue")+labs(title="Linear regresssion model",x="internaal",y="external")+theme_minimal())
+#print residuals
+print(ggplot(data,aes(x=fitted(lm_model),y=residuals(lm_model)))+geom_point()+geom_hline(yintercept = 0,linetype="dashed",color="red")+labs(title = "residuals plot",x="fitted values",y="residuals")+theme_minimal())
